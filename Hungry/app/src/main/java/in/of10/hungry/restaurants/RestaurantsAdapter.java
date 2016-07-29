@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import in.of10.hungry.R;
 import in.of10.hungry.service.RestaurantService;
 
@@ -19,6 +22,7 @@ import in.of10.hungry.service.RestaurantService;
 public class RestaurantsAdapter extends BaseAdapter {
 
     private RestaurantService restaurantService;
+    private List<Restaurant> mRestaurants;
     private Context mContext;
 
     /**
@@ -28,6 +32,14 @@ public class RestaurantsAdapter extends BaseAdapter {
     public RestaurantsAdapter(Context c){
         mContext = c;
         restaurantService = RestaurantService.getInstance();
+        mRestaurants = new ArrayList<Restaurant>();
+        restaurantService.getListOfRestaurants(new RestaurantCallback() {
+            @Override
+            public void receiveRestaurants(List<Restaurant> restaurants) {
+                mRestaurants = restaurants;
+                notifyDataSetChanged();
+            }
+        });
     }
 
     @Override
@@ -35,7 +47,7 @@ public class RestaurantsAdapter extends BaseAdapter {
      * Get Count of Restaurants
      */
     public int getCount() {
-        return restaurantService.getNumberOfRestaurants();
+        return mRestaurants.size();
     }
 
     /**
@@ -45,7 +57,7 @@ public class RestaurantsAdapter extends BaseAdapter {
      */
     @Override
     public Object getItem(int i) {
-        return restaurantService.getRestaurant(i);
+        return mRestaurants.get(i);
     }
 
     /**

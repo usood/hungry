@@ -6,6 +6,7 @@
 
     <ImageView
         android:layout_width="100dp"
+        android:id="@+id/photo"
         android:src="@drawable/samosa"
         android:padding="8dp"
         android:layout_height="100dp" />
@@ -22,7 +23,7 @@
             android:layout_height="wrap_content"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:text="Restaurnt Name"
+            android:text="Dish Name"
             android:layout_marginBottom="4dp"
             />
 
@@ -32,9 +33,37 @@
             android:layout_height="wrap_content"
             android:textSize="16dp"
             android:layout_weight="1"
-            android:text="Lorem ipsum this is a good restaurant it's an awersome playce to eat"
+            android:text="Dish Description"
             />
+        <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/decrease"
+                android:text="-"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:text="0"
+                android:id="@+id/quantity"
+                />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/increase"
+                android:text="+"
+                />
 
+        </LinearLayout>
     </LinearLayout>
 
 

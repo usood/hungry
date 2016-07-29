@@ -1,6 +1,7 @@
 package in.of10.hungry;
 
 import android.content.Intent;
+import android.database.DataSetObserver;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -8,6 +9,7 @@ import android.view.MenuInflater;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import in.of10.hungry.restaurants.OrderService;
 import in.of10.hungry.restaurants.Restaurant;
 import in.of10.hungry.service.RestaurantService;
 
@@ -23,10 +25,12 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         Intent i = getIntent();
-        long restaurantId = i.getLongExtra("restaurant_id", -1);
+        int restaurantId = i.getIntExtra("restaurant_id", -1);
 
         Restaurant restaurant = RestaurantService.getInstance().getRestaurantById(restaurantId);
         setTitle(restaurant.getName());
+
+        OrderService.getInstance().startNewOrder(restaurantId);
 
         mCart = (TextView) findViewById(R.id.cart);
         mCart.setText("0 items in cart");
@@ -35,6 +39,13 @@ public class MenuActivity extends AppCompatActivity {
 
         menuAdapter = new MenuAdapter(this, restaurantId);
         mList.setAdapter(menuAdapter);
+        menuAdapter.registerDataSetObserver(new DataSetObserver() {
+            @Override
+            public void onChanged() {
+                int totalItems = OrderService.getInstance().getItemsInOrder();
+                mCart.setText(totalItems + " items in cart");
+            }
+        });
 
     }
 

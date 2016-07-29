@@ -2,12 +2,14 @@ package in.of10.hungry.restaurants;
 
 import java.util.List;
 
+import in.of10.hungry.dishes.Review;
+
 /**
  * Created by upaharsood on 18/06/16.
  */
 public class Restaurant {
 
-    private long id;
+    private int id;
 
     private String name;
     private String description;
@@ -28,7 +30,7 @@ public class Restaurant {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
